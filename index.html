@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web App</title>
+    <style>
+        .tok{
+            width: 300;
+            height: 100;
+            background-image: 'https://rivercitybank.com/wp-content/uploads/2018/02/wiring-money-1.jpg';
+
+        }
+        .re{
+            margin-left: 7%;
+        }
+        .su{
+            margin-left: -60%;
+            margin-top: 20%;
+        }
+        .te{
+            margin-top: -50%;
+            margin-left: 40%;
+        }
+        .e{
+            background-color: gray;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 10px;
+            max-width: 290px;
+            text-align: center;
+            margin-left: 7%;
+        }
+        .r{
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+            margin-top: -6%;
+        }
+        .token{
+            margin-left: 51%;
+            margin-top: -2.5%;
+        }
+        button{
+            margin-left: 47%;
+        }
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: black;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        .navbar a:hover {
+            background: #f1f1f1;
+            color: black;
+        }
+        .navbar a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .content-section {
+            display: none;
+            padding: 20px;
+            color: white;
+        }
+        .active-section {
+            display: block;
+        }
+        .form-input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+    </style>
+    <script>
+        // Функция для показа нужного раздела (страницы)
+        function showSection(sectionId) {
+            const sections = document.getElementsByClassName('content-section');
+            for (let i = 0; i < sections.length; i++) {
+                sections[i].classList.remove('active-section');
+            }
+            document.getElementById(sectionId).classList.add('active-section');
+        }
+
+        // Функция для извлечения параметров из URL
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            let results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Функция для отображения данных пользователя
+        function displayUserInfo() {
+            const username = getParameterByName('username') || "Гость";
+            const userId = getParameterByName('user_id') || "Неизвестно";
+            const balance = getParameterByName('balance') || "0";
+            const remainingTokens = getParameterByName('remaining_tokens') || "Неизвестно";
+            const referrals = getParameterByName('referrals') || "0";
+
+            document.getElementById('username').textContent = username;
+            document.getElementById('user_id').textContent = userId;
+            document.getElementById('balance').textContent = balance;
+            document.getElementById('remaining_tokens').textContent = remainingTokens;
+            document.getElementById('referrals').textContent = referrals;
+
+            // Показать реферальную ссылку
+            const referralLink = `https://t.me/MineEarnCoin_bot?start=${userId}`;
+            document.getElementById('referral_link').textContent = referralLink;
+            document.getElementById('referral_link').href = referralLink;
+        }
+
+        // Выполняем функцию при загрузке страницы
+        window.onload = displayUserInfo;
+    </script>
+</head>
+<body>
+    <div id="main-section" class="content-section active-section">
+        <h1 align="center"><font color="white">Hello, <span id="username">Гость</span>!</font></h1>
+        <div class="e">
+            <div>
+                <font color="white"><p align="center">Your total balance: </p></font>
+                <h1 align="center" text="white"><font color="lime"><p><span id="balance">0</span> MineCoins</p></font></h1>
+            </div>
+        </div>
+        
+        <div class="d">
+            <font color="lime"><p align="center">Your Telegram ID: <span id="user_id">Неизвестно</span></p></font>
+        </div>
+        <br>
+    <br>
+        <a href="https://t.me/nuriknik"><img class="re" src="https://1.bp.blogspot.com/-5UJrx8T_XQ4/XgIzFINyg_I/AAAAAAAAAtI/_UOoAIY49vIu7d5OWj5387vwYZWPPluNgCLcBGAsYHQ/s1600/PicsArt_12-24-08.37.34.png" alt="" width="300" height="100"></a>
+    </div>
+    
+
+    <div id="remaining-tokens-section" class="content-section">
+        <h1 align="center"><font color="white">Total remaining tokens:</font></h1>
+        <h1 align="center"><font color="red"><span id="remaining_tokens">Неизвестно</span> MineCoins</font></h1>
+    </div>
+
+    <div id="referral-section" class="content-section">
+        <div class="tok"><img src="https://rivercitybank.com/wp-content/uploads/2018/02/wiring-money-1.jpg" alt="" width="300" height="150">
+            <h1>Earn 2000 tokens by inviting 5 friends!</h1></div>
+        <h2 align="center"><font color="white">Your Referral Link</font></h2>
+        <p align="center"><a id="referral_link" href="#" style="color: blue; text-decoration: underline;">Click to copy</a></p>
+        <h2 align="center"><font color="white">Referrals: <span id="referrals">0</span></font></h2>
+    </div>
+
+
+    <div class="navbar">
+        <a href="#" onclick="showSection('main-section')" class="active"><img src="https://static.tildacdn.com/tild3063-6430-4666-b630-303136626164/imgonline-com-ua-Tra.png" alt="" width="30" height="30"><br>Main</a>
+        <a href="#" onclick="showSection('remaining-tokens-section')"><img src="https://i.pinimg.com/originals/9d/da/7b/9dda7b9b586a0ea8ee40ae978005d9fb.png" alt="" width="30" height="30"><br>Remain Tokens</a>
+        <a href="#" onclick="showSection('referral-section')"><img src="https://www.guelphhumber.ca/sites/default/files/page_images/icons-dark-cyan-03.png" width="40" height="40" alt=""><br>Referrals</a>
+       
+    </div>
+</body>
+</html>
